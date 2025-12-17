@@ -1,0 +1,895 @@
+@charset "utf-8";
+
+/* ===== 共通設定 ===== */
+/* PC用ドロワーメニュー文字の上の余白*/
+:root {
+    --drawer-top-offset: 120px;
+}
+
+/* ===== bodyの設定 ===== */
+body {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    background-image:url(img/Bg.png);
+    background-repeat: repeat-y;    /* 画像を縦方向だけ繰り返し */
+    background-position: top center;
+    background-size: 100% auto;     /* 横幅は画面に合わせて、縦幅は自動 */
+}
+
+/* ===== ドロワーメニューの設定 ===== */
+/* == ハンバーガーの設定 == */
+.hamburger {
+    width: 100px;
+    top: 20px;
+    left: 15px;
+    right: auto;
+    gap: 6px;
+    padding: 8px 12px;
+    z-index: 5000;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    background-color: #2EC4B6;
+    backdrop-filter: blur(6px);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.hamburger-text {
+    color: #FFFFFF;
+    font-weight: bold;
+    font-size: 20px;
+    position: relative;
+    z-index: 5100;
+    pointer-events: none;
+}
+
+.hamburger-lines {
+    width: 28px;
+    height: 24px;
+    position: relative;
+    z-index: 500;
+}
+
+.hamburger-lines span {
+    width: 28px;
+    height: 4px;
+    display: block;
+    position: absolute;
+    background-color: #FFFFFF;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 500;
+    pointer-events: none;
+}
+
+/* 各線の位置 */
+.hamburger-lines span:nth-child(1) {
+    top: 0;
+}
+
+.hamburger-lines span:nth-child(2) {
+    top: 10px;
+}
+
+.hamburger-lines span:nth-child(3) {
+    top: 20px;
+}
+
+/* 開いた時にハンバーガーを×に変形させる */
+.hamburger.active .hamburger-lines span:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+}
+
+.hamburger.active .hamburger-lines span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active .hamburger-lines span:nth-child(3) {
+    transform: translateY(-10px) rotate(-45deg); 
+}
+
+/* ハンバーガーをクリックしても「MENU」が消えないようにする*/
+.hamburger.active .hamburger-text {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* == ドロワーメニューの設定 == */
+/* 全体 */
+.drawer-menu {
+    width: 260px;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    position: fixed;
+    background: #FFE08A66;
+    backdrop-filter: blur(6px);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    z-index: 4000;
+}
+
+/* 開いた時 */
+.drawer-menu.open {
+    transform: translateX(0);
+}
+
+/* 内部スクロール領域 */
+.drawer-inner {
+    padding: 16px;
+    padding-top: var(--drawer-top-offset); /*　メニューを下にずらす*/
+}
+
+.drawer-inner ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* メニュー項目 */
+.drawer-menu  ul li a {
+    display: block;
+    padding: 12px 10px;
+    color: #000000;
+    text-align: left;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ホバー時 */
+.drawer-menu ul li a:hover {
+    background: #FFFFFF71;
+    border-radius: 10px;
+}
+
+/* ===== 開いているページをハイライト ===== */
+.drawer-menu a.active-page {
+    background: #fc7b2a87;
+    border-radius: 10px;
+}
+
+/* ==== contents(枠)の共通設定 ==== */
+/* 通常の枠 */
+.content-box {
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 60px 50px;
+    background-color:#ffffffbe;
+    border-radius: 10px;
+}
+
+/* ページのタイトルなど大き目の枠用 */
+.content-box.large-text {
+    font-size: 20px;
+}
+
+.content-box.large-text h1 {
+    font-size: 36px;
+}
+
+/* ===== 黒板画像の枠設定 ===== */
+/* トップページ */
+.home-board {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 60px 40px 80px;
+
+    background-image: url(img/Kokuban.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+}
+
+.home-board .board-inner {
+    font-family: "Yusei Magic", cursive;
+    color: #FFFFFF;
+    max-width: 760px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.home-board .board-inner h1 {
+    font-size: 3rem;
+    text-decoration: underline;
+    margin-bottom: 24px;
+}
+
+.home-board .board-text h2 {
+    font-size: 2rem;
+}
+
+.home-board .board-text p {
+    font-size: 1.5em;
+    line-height: 1.9;
+    margin-bottom: 20px;
+    letter-spacing: 0.05em;
+}
+
+/* ===== OP映像 ===== */
+.home-board-movie {
+    margin: 30px auto 0;
+    width: 100%;
+    max-width: 320px;
+    aspect-ratio: 16 / 9;
+    background: #000000;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px #00000033;
+}
+
+.home-board-movie iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    display: block;
+}
+
+/* アイドル紹介ページ */
+.idol-page .board-frame {
+    background-image: url(img/Kokuban.png);
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    max-width: 800px;
+    margin: 60px auto;
+    box-sizing: border-box;
+}
+
+/* 3列の黒板だけ幅を広げる */
+.idol-page .cols-3.board-frame {
+    max-width: 900px;
+}
+
+.idol-page .board-inner {
+    font-family: "Yusei Magic", cursive;
+    color: #FFFFFF;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 80px 60px 100px;
+    box-sizing: border-box;
+}
+
+.idol-page .board-text h2 {
+    text-align: center;
+    margin-top: -20px;
+    margin-bottom: 20px;
+}
+
+/* ===== アイドル紹介のリンクの設定 ===== */
+/* aタグ全体 */
+.idol-page .idol-profile {
+    width: 260px;
+    display: flex;
+    justify-content: center;
+    transition: transform 0.3s ease;
+}
+
+.idol-page .idol-profile:hover {
+    transform: scale(1.05);
+}
+
+/* 画像の設定 */
+.idol-page .idol-thumb {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    box-shadow: 0 4px 10px #00000022;
+}
+
+/* 画像の配列設定 */
+.idol-page .idol-links {
+    display: grid;
+    gap: 24px;
+    justify-content: center;
+    justify-items: center;
+    box-sizing: border-box;
+    padding: 20px 5%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 3列で表示(1年1組) */
+.idol-page .cols-3 .idol-links {
+    grid-template-columns: repeat(3, auto);
+}
+
+/* 2列で表示(1年2組、3年1組) */
+.idol-page .cols-2 .idol-links {
+    grid-template-columns: repeat(2, auto);
+}
+
+/* ===== アイドル個別ページの設定 ===== */
+/* == 全体,共通 ==*/
+.notebook {
+    background: url("img/note.png");
+    background-repeat: repeat-y;
+    background-position: top center;
+    background-size: 100% auto;
+    width: 100%;
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 40px 0 20px;
+    border-radius: 10px;
+}
+
+.notebook-inner {
+    display: grid;
+    grid-template-columns: 45% 55%;
+    gap: 40px;
+    padding: 40px 60px;
+    box-sizing: border-box;
+}
+
+
+/* 左側(スライドショー)*/
+.notebook-left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slideshow {
+    background-color: #FFFFFF;
+    padding: 12px;
+    width: 100%;
+    max-width: 400px;
+    aspect-ratio: 3 /4;
+    margin: 0 auto;
+    overflow: hidden;
+    box-shadow:
+        0 8px 20px #00000020,
+        0 2px 6px #0000002f;
+    border-radius: 10px;  
+}
+
+.slides {
+    display: flex;
+    height: 100%;
+    transition: transform 0.8s ease;
+}
+
+.slide {
+    min-width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+}
+
+/* 右側(プロフィール) */
+.notebook-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 20px 40px;
+}
+
+.notebook-right h1.name {
+    font-size: 2.1rem;
+    margin-top: 0;
+    line-height: 1.2;
+}
+
+.notebook-right p {
+    font-size: 0.9rem;
+    background: #ffffff;
+    padding: 14px 20px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    line-height: 2;
+    box-shadow: 0 2px 6px #00000044;
+    border: 1px solid #979797;
+}
+
+.name {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.ruby-side {
+    font-size: 0.6em;
+    letter-spacing: 0.05em;
+}
+
+/* 紹介動画 */
+.idol-movie {
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 16 / 9;
+    background: #000000;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px #00000033;
+}
+
+.idol-movie iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* 「アイドル紹介トップへ戻る」の設定 */
+.back-link {
+    font-size: 1.5rem;
+    display: block;
+    text-align: center;
+    text-decoration: none;
+    margin: 40px auto 0;
+    font-weight: bold;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* == アイドル毎の個別設定 == */
+/* 咲季 */
+body.Saki .slideshow {
+    background-color: #e30f24b2;
+}
+
+body.Saki .notebook-right h1 {
+    color: #e30f25;
+}
+
+/* 手毬 */
+body.Temari .slideshow {
+    background-color: #0c7bbbc6;
+}
+
+body.Temari .notebook-right h1 {
+    color: #0c7bbb;
+}
+
+/* ことね */
+body.Kotone .slideshow {
+    background-color: #f8c212c9;
+}
+
+body.Kotone .notebook-right h1 {
+    color: #f8c112;
+}
+
+/* リーリヤ */
+body.Lilja .slideshow {
+    background-color: #eafdffd2;
+}
+
+body.Lilja .notebook-right h1 {
+    color: #eafdff;
+    background-color: #00000075;
+}
+
+/* 清夏 */
+body.Sumika .slideshow {
+    background-color: #7efc00d9;
+}
+
+body.Sumika .notebook-right h1 {
+    color: #7cfc00;
+}
+
+/* 千奈 */
+body.Tina .slideshow {
+    background-color: #f68b1fd8;
+}
+
+body.Tina .notebook-right h1 {
+    color: #f68b1f;
+}
+
+/* 広 */
+body.Hiro .slideshow {
+    background-color: #00adccc7;
+}
+
+body.Hiro .notebook-right h1 {
+    color: #00afcc;
+}
+
+/* 佑芽 */
+body.Ume .slideshow {
+    background-color: #ea543ad4;
+}
+
+body.Ume .notebook-right h1 {
+    color: #ea533a;
+}
+
+/* 美鈴 */
+body.Misuzu .slideshow {
+    background-color: #7a99cfc2;
+}
+
+body.Misuzu .notebook-right h1 {
+    color: #7a99cf;
+}
+
+/* 麻央 */
+body.Mao .slideshow {
+    background-color: #7e1184c8;
+}
+
+body.Mao .notebook-right h1 {
+    color: #7f1184;
+}
+
+/* 莉波 */
+body.Rinami .slideshow {
+    background-color: #f6adc7c0;
+}
+
+body.Rinami .notebook-right h1 {
+    color: #f6adc6;
+}
+
+/* 星南 */
+body.Sena .slideshow {
+    background-color: #f6ad54cf;
+}
+
+body.Sena .notebook-right h1 {
+    color: #f6ae54;
+}
+
+/* 燕 */
+body.Tubame .slideshow {
+    background-color: #7c68eed1;
+}
+
+body.Tubame .notebook-right h1 {
+    color: #7b68ee;
+}
+
+/* 動画の配置 */
+.movie-section {
+    margin-top: 40px;
+}
+
+.movie-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(2, 1fr));
+    gap: 24px;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.movie-list p {
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.movie-item {
+    position: relative;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    background: #000000;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px #00000033;
+}
+
+.movie-item iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+/* == アイドル別の色設定 == */
+/* 咲季 */
+body.Saki .movie-section h1 {
+    color: #e30f25;
+}
+
+/* ===== 楽曲紹介ページ ===== */
+body.music-page .music-board {
+    background-image: url(img/Kokuban.png);
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 100%;
+    max-width: 900px;
+    margin: 60px auto;
+}
+
+body.music-page .music-board-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    padding: 60px 80px;
+    box-sizing: border-box;
+}
+
+body.music-page .music-video {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+    aspect-ratio: 16 / 9;
+    margin: 0 auto;
+}
+
+body.music-page .music-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+}
+
+body.music-page .music-text {
+    font-family: "Yusei Magic", cursive;
+    color: #FFFFFF;
+    align-self: start;
+}
+
+body.music-page .music-text h2 {
+    font-size: 1.9rem;
+    margin-top: -10px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+body.music-page .music-text p {
+    font-size: 1.3rem;
+    margin-top: 30px;
+    line-height: 2;
+    text-align: center;
+}
+
+/* ===== フッターの設定 ===== */
+footer {
+    width: 100%;
+    margin-top: 60px;
+    padding: 20px 0;
+    background: #ffffffa2;
+    box-sizing: border-box;
+}
+
+.footer-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 16px;
+    text-align: center;
+}
+
+.footer-inner p {
+    margin: 8px 0 0;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+/* ===== レスポンシブ対応 ===== */
+/* スマホ対応 */
+@media screen and (max-width: 768px) {
+    :root {
+        --drawer-top-offset: 100px;
+    }
+
+    /* 全体 */
+    body {
+        background-size: 100% auto;         /* 横幅をスマホに合わせる*/
+        background-position: top center;
+    }
+
+    /* ドロワーメニュー */
+    .drawer-inner {
+        padding-top: 100px;
+    }
+
+    /* コンテンツ枠 */
+    .content-box {
+        padding: 30px 10px;
+    }
+
+    /* 黒板の画像 */
+    .home-board {
+        padding: 30px 20px 40px;
+    }
+
+    .home-board br {
+        display: none;
+    }
+    
+    .home-board .board-inner h1 {
+        font-size: 1.6rem;
+    }
+    .home-board .board-inner p {
+        font-size: 1rem;
+        line-height: 1.7;
+    }
+    .idol-page .board-frame {
+        width: 100%;
+        max-width: 100%;
+        min-height: 500px;
+        margin: 30px auto;
+        background-size: cover;
+    }
+
+    .idol-page .board-inner {
+        max-width: 360px;
+        padding: 24px 12px 40px;
+    }
+    
+    .idol-page .board-text h1 {
+        font-size: 1.4rem;
+        margin-bottom: 10px;
+    }
+
+    .idol-page .board-text h2 {
+        font-size: 2rem;
+        margin-top: 10px;
+        margin-bottom: 16px;
+        text-align: center;
+    }
+
+    .idol-page .board-text p {
+        font-size: 0.95rem;
+    }
+
+    /* OP映像 */
+    .op-movie {
+        max-width: 100%;
+    }
+
+    /* アイドル紹介ページ */
+    .idol-page .idol-profile {
+        width: 260px;
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .idol-page .idol-thumb {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+        display: block;
+        box-shadow: 0 3px 8px #00000022;
+    }
+
+    .idol-page .cols-3 .idol-links,
+    .idol-page .cols-2 .idol-links {
+        grid-template-columns: 1fr; /* スマホでは1列で表示 */
+        gap: 16px;
+    }
+
+    .notebook {
+        aspect-ratio: auto;
+        background-size: cover;
+    }
+
+    .notebook-inner {
+        grid-template-columns: 1fr;
+        padding: 30px 20px;
+    }
+
+    .slideshow {
+        max-height: 260px;
+        aspect-ratio: 3 / 4;
+    }
+}
+
+/* タブレット対応(幅769px~1024px) */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+    :root {
+        --drawer-top-offset: 120px;
+    }
+    
+    /* 全体 */
+    body {
+        background-size: 100% auto;         
+        background-position: top center;
+    }
+
+    /* ドロワーメニュー */
+    .drawer-inner {
+        padding-top: 100px;
+    }
+
+    /* 黒板の画像 */
+    .idol-page .board-frame {
+        max-width: 900px;
+        margin: 40px auto;
+    }
+
+    .idol-page .board-inner {
+        max-width: 860px;
+        padding: 60px 30px 80px;
+    }
+
+    .idol-page .board-text h1 {
+        font-size: 1.8rem;
+    }
+
+    .idol-page .board-text h2 {
+        font-size: 2.5rem;
+        margin-top: 20px;
+    }
+    
+    /* 1年1組の黒板 */
+   .idol-page .board-frame.cols-3 {
+        min-height: 700px;
+    }
+
+    .idol-page .board-frame.cols-3 .board-inner {
+        padding-top: 140px;
+    }
+
+    /* コンテンツ枠 */
+    .content-box {
+        padding: 60px 20px;
+    }
+
+    /* アイドル紹介ページ */
+    .idol-page .content-box h1 {
+        font-size: 3.5rem;
+    }
+
+    .idol-page .content-box p {
+        font-size: 2rem;
+    }
+    .idol-page .idol-links {
+        gap: 20px;
+        padding: 20px 5%;
+    }
+
+    .idol-page .cols-3 .idol-links,
+    .idol-page .cols-2 .idol-links {
+        grid-template-columns: repeat(2, auto);
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .idol-page .idol-profile {
+        width: 220px;
+    }
+
+    .idol-page .idol-thumb {
+        border-radius: 10px;
+    }
+
+    .notebook {
+        max-width: 1000px;
+    }
+
+    .notebook-inner {
+        padding: 50px 60px;
+    }
+
+    .slideshow {
+        max-height: 400px;
+        aspect-ratio: 3 / 4;
+    }
+
+    .slide {
+        border-radius: 6px;
+    }
+
+    .notebook-right h1 {
+        font-size: 1.8rem;
+    }
+
+    .notebook-right p {
+        font-size: 0.95rem;
+        line-height: 1.9;
+    }
+
+}
