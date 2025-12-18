@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 開いているページをハイライト
-    const currentPath = location.pathname.split("/").pop();
+    const currentPath = location.pathname.split("/").pop() || "index.html";
     const menulinks = document.querySelectorAll(".drawer-menu a");
 
     menulinks.forEach(link => {
@@ -78,4 +78,5 @@ $(function() {
             delay: 50
         }
     });
+
 });
