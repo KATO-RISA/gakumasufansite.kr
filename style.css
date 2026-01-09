@@ -62,6 +62,13 @@ body {
     transition: transform 0.3s ease, opacity 0.3s ease;
     z-index: 500;
     pointer-events: none;
+    transform: none;
+    opacity: 1;
+}
+
+.hamburger:not(.active) .hamburger-lines span {
+    transform: none;
+    opacity: 1;
 }
 
 /* 各線の位置 */
@@ -112,21 +119,13 @@ body {
     z-index: 4000;
 }
 
+.drawer-inner {
+    padding: 100px 16px 20px;
+}
+
 /* 開いた時 */
 .drawer-menu.open {
     transform: translateX(0);
-}
-
-/* 内部スクロール領域 */
-.drawer-inner {
-    padding: 16px;
-    padding-top: var(--drawer-top-offset); /*　メニューを下にずらす*/
-}
-
-.drawer-inner ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
 }
 
 /* メニュー項目 */
@@ -152,6 +151,72 @@ body {
     border-radius: 10px;
 }
 
+/* ==== 更新履歴の設定 ==== */
+/* 全体 */
+.update {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    background: #fffdf5;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px #00000012;
+}
+
+/* 枠＋スクロール */
+.update-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border: 1px solid #3fdea433;
+    border-radius: 8px;
+    max-height: 180px;
+    overflow-y: auto;
+    background-size: 100% 24px;
+}
+
+/* ヘッダー(更新履歴) */
+.update-header {
+    text-align: center;
+    font-weight: bold;
+    padding: 10px 0;
+    background: #3fdea4;
+    letter-spacing: 0.15em;
+    font-size: 1.1rem;
+}
+
+/* 各行 */
+.update-list li:not(.update-header) {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-bottom: 1px dashed #3fdea4;
+    font-size: 0.95rem;
+}
+
+/* 最後の線を消す */
+.update-list li:last-child {
+    border-bottom: none;
+}
+
+/* 日付 */
+.update-list time {
+    white-space: nowrap;
+    font-weight: bold;
+    color: #5f5b54;
+}
+
+/* NEWマーク */
+.update-list li.new::after {
+  content: "NEW";
+  margin-left: 5px;
+  font-size: 11px;
+  background: #ff5c5c;
+  color: #fff;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
 /* ==== contents(枠)の共通設定 ==== */
 /* 通常の枠 */
 .content-box {
@@ -171,13 +236,33 @@ body {
     font-size: 36px;
 }
 
+/* ==== about-gakumasuの設定 ==== */
+.about-gakumasu {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+    box-sizing: border-box;
+}
+
+.about-image {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.about-gakumasu img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
 /* ===== 黒板画像の枠設定 ===== */
 /* トップページ */
 .home-board {
     max-width: 900px;
-    margin: 40px auto;
-    padding: 60px 40px 80px;
-
+    margin: 30px auto;
+    padding: 40px 0px 40px;
     background-image: url(img/Kokuban.png);
     background-repeat: no-repeat;
     background-position: center;
@@ -192,28 +277,11 @@ body {
     text-align: center;
 }
 
-.home-board .board-inner h1 {
-    font-size: 3rem;
-    text-decoration: underline;
-    margin-bottom: 24px;
-}
-
-.home-board .board-text h2 {
-    font-size: 2rem;
-}
-
-.home-board .board-text p {
-    font-size: 1.5em;
-    line-height: 1.9;
-    margin-bottom: 20px;
-    letter-spacing: 0.05em;
-}
-
 /* ===== OP映像 ===== */
 .home-board-movie {
     margin: 30px auto 0;
     width: 100%;
-    max-width: 320px;
+    max-width: 420px;
     aspect-ratio: 16 / 9;
     background: #000000;
     border-radius: 10px;
