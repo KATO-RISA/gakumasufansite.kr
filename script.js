@@ -19,11 +19,12 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("click", () => {
         if (drawer.classList.contains("open")) {
             drawer.classList.remove("open");
+            hamburger.classList.remove("active");
         }
     });
 
     // 開いているページをハイライト
-    const currentPath = location.pathname.split("/").pop() || "index.html";
+    const currentPath = location.pathname.split("/").pop();
     const menulinks = document.querySelectorAll(".drawer-menu a");
 
     menulinks.forEach(link => {
@@ -78,7 +79,4 @@ $(function() {
             delay: 50
         }
     });
-
 });
-
-
