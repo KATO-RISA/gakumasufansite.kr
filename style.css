@@ -129,6 +129,12 @@ body {
 }
 
 /* メニュー項目 */
+.drawer-inner ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
 .drawer-menu  ul li a {
     display: block;
     padding: 12px 10px;
@@ -961,3 +967,4 @@ footer {
     }
 
 }
+
